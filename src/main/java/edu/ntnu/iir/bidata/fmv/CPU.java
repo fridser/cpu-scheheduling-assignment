@@ -27,10 +27,10 @@ public class CPU {
   }
 
   public void tick() {
-    if (processes.stream().anyMatch(process -> (process.getArrivalTime() == time))) {
+    if (processes.stream().anyMatch(process -> process.getArrivalTime() == time)) {
       for (Process process :
           processes.stream().filter(process ->
-              (process.getArrivalTime() == time)).toList()) {
+              process.getArrivalTime() == time).toList()) {
         scheduler.addProcess(process);
 
       }
@@ -74,8 +74,8 @@ public class CPU {
       totTurnaroundTime += process.getTurnaroundTime();
       totWaitingTime += process.getWaitingTime();
     }
-    avgTurnaroundTime = totTurnaroundTime / processes.size();
-    avgWaitingTime = totWaitingTime / processes.size();
+    avgTurnaroundTime = (double) totTurnaroundTime / (double)processes.size();
+    avgWaitingTime =  ((double) totWaitingTime / (double) processes.size());
   }
 
   public void addAll(List<Process> list) {

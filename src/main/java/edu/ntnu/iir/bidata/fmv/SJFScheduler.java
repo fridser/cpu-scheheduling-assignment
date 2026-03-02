@@ -6,7 +6,6 @@ import java.util.PriorityQueue;
 public class SJFScheduler implements Scheduler {
   private int time = 0;
   private PriorityQueue<Process> queue;
-  private Process currentProcess;
 
   public SJFScheduler() {
     queue = new PriorityQueue<>(Comparator.comparing(Process::getBurstTime));
@@ -20,14 +19,11 @@ public class SJFScheduler implements Scheduler {
 
   @Override
   public void process() {
-    if (currentProcess == null) {
-      if (queue.peek() != null) {
-        currentProcess = queue.peek();
-        queue.remove(currentProcess);
+    if (queue.peek() != null) {
+      Process process = queue.peek();
+      if (process.doWork(time)) {
+        queue.remove(process);
       }
-    }
-    if (currentProcess.doWork(time)) {
-      currentProcess = null;
     }
     time++;
   }

@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        CPU cpu = new CPU(new FCFSScheduler());
-        cpu.addAll(createSample1());
+        CPU cpu = new CPU(new SJFScheduler());
+        cpu.addAll(createSampleTestSRTF());
         cpu.run(100);
     }
 
@@ -39,5 +39,14 @@ public class Main {
         list.add(new Process(6,5,2));
         return list;
     }
+
+  static private List<Process> createSampleTestSRTF() {
+    ArrayList<Process> list = new ArrayList<>();
+    list.add(new Process(1, 0, 8));
+    list.add(new Process(2,1,4));
+    list.add(new Process(3,2,9));
+    list.add(new Process(4,3,5));
+    return list;
+  }
 }
 

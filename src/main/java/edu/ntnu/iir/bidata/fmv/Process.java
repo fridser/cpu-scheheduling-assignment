@@ -51,7 +51,7 @@ public class Process {
     workRemaining--;
     if (workRemaining <= 0) {
       finished = true;
-      completionTime = time;
+      completionTime = time + 1;
     }
     return finished;
   }
