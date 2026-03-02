@@ -5,10 +5,12 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
+        CPU cpu = new CPU(new FCFSScheduler());
+        cpu.addAll(createSample1());
+        cpu.run(100);
     }
 
-    private List<Process> createSample1() {
+   static private List<Process> createSample1() {
         ArrayList<Process> list = new ArrayList<>();
         list.add(new Process(1,0,8));
         list.add(new Process(2,0,4));
@@ -18,7 +20,7 @@ public class Main {
         return list;
     }
 
-    private List<Process> createSample2() {
+    static private List<Process> createSample2() {
         ArrayList<Process> list = new ArrayList<>();
         list.add(new Process(1, 0, 20));
         list.add(new Process(2,1,2));
@@ -27,8 +29,7 @@ public class Main {
         list.add(new Process(5,4,3));
         return list;
     }
-
-    private List<Process> createSample3() {
+    static private List<Process> createSample3() {
         ArrayList<Process> list = new ArrayList<>();
         list.add(new Process(1,0,20));
         list.add(new Process(2,1,2));

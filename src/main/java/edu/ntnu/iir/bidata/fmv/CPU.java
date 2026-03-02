@@ -47,7 +47,20 @@ public class CPU {
   }
 
   public void printDetails() {
-
+    System.out.println("|Pid|AT|BT|TT|WT|CT|");
+    for (Process process: processes) {
+      System.out.println(" | " + process.getId() + " | " +
+          process.getArrivalTime() + " | " +
+          process.getBurstTime() + " | " +
+          process.getTurnaroundTime() + " | " +
+          process.getWaitingTime() + " | " +
+          process.getCompletionTime() + " | "
+          );
+    }
+    calculateDetails();
+    System.out.println("Avg TT: " + avgTurnaroundTime +
+        "| Avg WT: " + avgWaitingTime +
+        "| CT: " + timeFinished + "|");
   }
 
   public void calculateDetails() {

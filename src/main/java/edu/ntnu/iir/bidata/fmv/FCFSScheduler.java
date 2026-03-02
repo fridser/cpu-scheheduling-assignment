@@ -18,10 +18,12 @@ public class FCFSScheduler implements Scheduler {
 
   @Override
   public void process() {
-    if (queue.peek().doWork(time)) {
-      queue.remove();
+    if (queue.peek() != null) {
+      if (queue.peek().doWork(time)) {
+        queue.remove();
+      }
+      time++;
     }
-    time++;
   }
 
   @Override
