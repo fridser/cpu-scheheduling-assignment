@@ -10,4 +10,16 @@ public class Process {
     this.arrivalTime = arrivalTime;
     this.burstTime = burstTime;
   }
+
+  public int getId() {
+    return this.id;
+  }
+
+  public int getArrivalTime() {
+    return this.arrivalTime;
+  }
+
+  public int getBurstTime() {
+    return this.burstTime;
+  }
 }
