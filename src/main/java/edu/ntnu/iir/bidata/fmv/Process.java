@@ -1,4 +1,4 @@
-package edu.ntnu.bidata;
+package edu.ntnu.iir.bidata.fmv;
 
 public class Process {
   private int id;
@@ -35,6 +35,17 @@ public class Process {
     return finished;
   }
 
+  public int getWorkRemaining() {
+    return workRemaining;
+  }
+
+  public int getTurnaroundTime() {
+    return completionTime - arrivalTime;
+  }
+
+  public int getWaitingTime() {
+    return getTurnaroundTime() - burstTime;
+  }
 
   public boolean doWork(int time) {
     workRemaining--;
