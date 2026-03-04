@@ -44,7 +44,6 @@ public class CPU {
       tick();
     }
     calculateDetails();
-    printDetails();
   }
 
   public void printDetails() {
