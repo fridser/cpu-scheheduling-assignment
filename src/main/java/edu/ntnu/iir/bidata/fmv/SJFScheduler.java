@@ -4,12 +4,11 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class SJFScheduler implements Scheduler {
-  private int time = 0;
-  private PriorityQueue<Process> queue;
-
-  public SJFScheduler() {
-    queue = new PriorityQueue<>(Comparator.comparing(Process::getBurstTime));
-  }
+  // Sort processes by burst time, then by arrival time
+  private PriorityQueue<Process> queue = new PriorityQueue<>(
+          Comparator.comparing(Process::getBurstTime).thenComparing(Process::getArrivalTime)
+  );
+  private Process currentProcess = null;
 
 
   @Override
@@ -18,18 +17,18 @@ public class SJFScheduler implements Scheduler {
   }
 
   @Override
-  public void process() {
-    if (queue.peek() != null) {
-      Process process = queue.peek();
-      if (process.doWork(time)) {
-        queue.remove(process);
-      }
+  public void process(int time) {
+    // If the current process is finished or there is no current process, pick the next one from the queue
+    if (currentProcess == null || currentProcess.isFinished()) {
+      currentProcess = queue.poll();
     }
-    time++;
+    if (currentProcess != null) {
+      currentProcess.doWork(time);
+    }
   }
 
   @Override
   public boolean isEmpty() {
-    return queue.isEmpty();
+    return queue.isEmpty() && currentProcess == null;
   }
 }
