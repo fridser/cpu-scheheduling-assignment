@@ -14,9 +14,11 @@ public interface Scheduler {
   public void addProcess(Process process);
 
   /**
-   * Processes one unit of time on the process first in the scheduler.
+   * Does one time unit of work on one process decided by the scheduling algorithm.
+   *
+   * @param time The CPU time at which the work is being done.
    */
-  public void process();
+  public void process(int time);
 
   /**
    * Returns whether the scheduler is empty or not.

@@ -7,8 +7,8 @@ import java.util.Queue;
  * Represents a scheduler using the First Come First Serve algorithm.
  */
 public class FCFSScheduler implements Scheduler {
-  private Queue<Process> queue;
-  private int time = 0;
+  private Queue<Process> queue = new LinkedList<>();
+  private Process currentProcess = null;
 
   /**
    * Creates an instance of the FCFSScheduler.
@@ -28,18 +28,18 @@ public class FCFSScheduler implements Scheduler {
   }
 
   @Override
-  public void process() {
-    if (queue.peek() != null) {
-      if (queue.peek().doWork(time)) {
-        queue.remove();
-      }
-      time++;
+  public void process(int time) {
+    if (currentProcess == null || currentProcess.isFinished()) {
+      currentProcess = queue.poll();
+    }
+    if (currentProcess != null) {
+      currentProcess.doWork(time);
     }
   }
 
   @Override
   public boolean isEmpty() {
-    return queue.isEmpty();
+    return queue.isEmpty() && currentProcess == null;
   }
 
 }

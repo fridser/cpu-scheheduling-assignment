@@ -42,27 +42,26 @@ public class CPU {
    * tells the scheduler to process one process for one unit of time.
    */
   public void tick() {
-    if (processes.stream().anyMatch(process -> process.getArrivalTime() == time)) {
-      for (Process process :
-          processes.stream().filter(process ->
-              process.getArrivalTime() == time).toList()) {
+    // Add processes that arrive at the current time to the scheduler
+    for (Process process : processes) {
+      if (process.getArrivalTime() == time) {
         scheduler.addProcess(process);
-
       }
     }
-    scheduler.process();
+    scheduler.process(time);
     time++;
   }
 
+
+
   /**
-   * Runs the CPU for the amount of time units given.
-   *
-   * @param iterations The amount of time units the CPU runs for.
+   * Run the CPU until all processes are finished.
    */
-  public void run(int iterations) {
-    for (int i = 0; i < iterations; i++) {
+  public void run() {
+    while (processes.stream().anyMatch(p -> !p.isFinished())) {
       tick();
     }
+    calculateDetails();
     printDetails();
   }
 
@@ -109,13 +108,9 @@ public class CPU {
   }
 
   /**
-   * Adds all the processes in the given list of processes to the CPU.
+   * Adds all the processes in the given list to the CPU.
    *
-   * @param list A list of processes to be added to the CPU.
+   * @param list The list of processes to be added to the CPU.
    */
-  public void addAll(List<Process> list) {
-    for (Process process: list) {
-      addProcess(process);
-    }
-  }
+  public void addAll(List<Process> list) { this.processes.addAll(list); }
 }
