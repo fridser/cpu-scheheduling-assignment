@@ -22,8 +22,8 @@ public class FCFSScheduler implements Scheduler {
       if (queue.peek().doWork(time)) {
         queue.remove();
       }
-      time++;
     }
+    time++;
   }
 
   @Override
