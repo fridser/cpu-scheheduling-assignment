@@ -53,14 +53,14 @@ public class CPUTest {
     List<Process> sample = createSampleTestSJF();
     cpu.addAll(sample);
     cpu.run(50);
-    assertEquals( 17, sample.get(0).getTurnaroundTime());
-    assertEquals(  4, sample.get(1).getTurnaroundTime());
+    assertEquals( 8, sample.get(0).getTurnaroundTime());
+    assertEquals(  11, sample.get(1).getTurnaroundTime());
     assertEquals(24, sample.get(2).getTurnaroundTime());
-    assertEquals( 7, sample.get(3).getTurnaroundTime());
+    assertEquals( 14, sample.get(3).getTurnaroundTime());
 
-    assertEquals(9, sample.get(0).getWaitingTime());
-    assertEquals(0, sample.get(1).getWaitingTime());
+    assertEquals(0, sample.get(0).getWaitingTime());
+    assertEquals(7, sample.get(1).getWaitingTime());
     assertEquals(15, sample.get(2).getWaitingTime());
-    assertEquals(2, sample.get(3).getWaitingTime());
+    assertEquals(9, sample.get(3).getWaitingTime());
   }
 }
