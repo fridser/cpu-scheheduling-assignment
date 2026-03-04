@@ -3,7 +3,9 @@ package edu.ntnu.iir.bidata.fmv;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-//Non-preemptive
+/**
+ * Represents a scheduler using non-preemptive Shortest Job First algorithm.
+ */
 public class SJFScheduler implements Scheduler {
   // Sort processes by burst time, then by arrival time
   private PriorityQueue<Process> queue = new PriorityQueue<>(
@@ -17,6 +19,12 @@ public class SJFScheduler implements Scheduler {
     this.queue.add(process);
   }
 
+  /**
+   * Does one time unit of work on one process decided by the non-preemptive SJF
+   * algorithm.
+   *
+   * @param time The CPU time at which the work is being done.
+   */
   @Override
   public void process(int time) {
     // If the current process is finished or there is no current process, pick the next one from the queue

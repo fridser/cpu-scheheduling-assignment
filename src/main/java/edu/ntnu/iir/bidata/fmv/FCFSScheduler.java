@@ -27,6 +27,11 @@ public class FCFSScheduler implements Scheduler {
     queue.add(process);
   }
 
+/**
+ * Does one time unit of work on one process decided by the FCFS algorithm.
+ *
+ * @param time The CPU time at which the work is being done.
+ */
   @Override
   public void process(int time) {
     if (currentProcess == null || currentProcess.isFinished()) {

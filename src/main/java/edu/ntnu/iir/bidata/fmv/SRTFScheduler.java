@@ -3,6 +3,9 @@ package edu.ntnu.iir.bidata.fmv;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/**
+ * Represents a scheduler using the Shortest Remaining Time First algorithm.
+ */
 public class SRTFScheduler implements Scheduler {
   private PriorityQueue<Process> queue = new PriorityQueue<>(
           Comparator.comparing(Process::getWorkRemaining).thenComparing(Process::getArrivalTime)
@@ -14,6 +17,12 @@ public class SRTFScheduler implements Scheduler {
     queue.add(process);
   }
 
+  /**
+   * Does one time unit of work on one process decided by the SRTF
+   * algorithm.
+   *
+   * @param time The CPU time at which the work is being done.
+   */
   @Override
   public void process(int time) {
     // Always pick the process with the shortest remaining time
