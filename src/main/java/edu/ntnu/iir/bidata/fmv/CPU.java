@@ -10,22 +10,37 @@ import java.util.List;
  *
  */
 public class CPU {
-  private Scheduler scheduler;
-  private int time = 0;
-  private ArrayList<Process> processes;
-  private int timeFinished = 0;
-  private double avgTurnaroundTime;
-  private double avgWaitingTime;
+  private Scheduler scheduler; //The scheduler that decides the
+  // order the processes are processed
+  private int time = 0; //The current time of the cpu
+  private ArrayList<Process> processes; // All the processes to be processed
+  private int timeFinished = 0; //The time the last process is finished
+  private double avgTurnaroundTime; //The average turnaround time of the processed processes
+  private double avgWaitingTime; //The average waiting time of the processed processes
 
+  /**
+   * Creates an instance of the CPU.
+   *
+   * @param scheduler The scheduler used by the CPU.
+   */
   public CPU(Scheduler scheduler) {
     this.scheduler = scheduler;
     this.processes = new ArrayList<>();
   }
 
+  /**
+   * Adds a process to the CPU.
+   *
+   * @param process The process added to the CPU.
+   */
   public void addProcess(Process process) {
     this.processes.add(process);
   }
 
+  /**
+   * Adds a process to the scheduler if it's its arrival time,
+   * tells the scheduler to process one process for one unit of time.
+   */
   public void tick() {
     if (processes.stream().anyMatch(process -> process.getArrivalTime() == time)) {
       for (Process process :
@@ -39,6 +54,11 @@ public class CPU {
     time++;
   }
 
+  /**
+   * Runs the CPU for the amount of time units given.
+   *
+   * @param iterations The amount of time units the CPU runs for.
+   */
   public void run(int iterations) {
     for (int i = 0; i < iterations; i++) {
       tick();
@@ -46,6 +66,11 @@ public class CPU {
     printDetails();
   }
 
+  /**
+   * Prints the details of every process in the cpu,
+   * as well as the average turnaround time and waiting time,
+   * and the time the last process finished.
+   */
   public void printDetails() {
     System.out.printf("%6s %6s %6s %6s %6s %6s\n", "Pid", "AT", "BT", "TT", "WT", "CT");
     for (Process process: processes) {
@@ -64,6 +89,10 @@ public class CPU {
         "| CT: " + timeFinished + "|");
   }
 
+  /**
+   * Calculates the average turnaround and waiting time of
+   * the processes.
+   */
   public void calculateDetails() {
     int totTurnaroundTime = 0;
     int totWaitingTime = 0;
@@ -79,6 +108,11 @@ public class CPU {
     avgWaitingTime =  ((double) totWaitingTime / (double) processes.size());
   }
 
+  /**
+   * Adds all the processes in the given list of processes to the CPU.
+   *
+   * @param list A list of processes to be added to the CPU.
+   */
   public void addAll(List<Process> list) {
     for (Process process: list) {
       addProcess(process);
