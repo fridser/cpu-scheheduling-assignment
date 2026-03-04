@@ -17,16 +17,19 @@ public class Main {
     CPU cpuFCFS = new CPU(new FCFSScheduler());
     cpuFCFS.addAll(copyDataset(dataset));
     cpuFCFS.run();
+    cpuFCFS.printDetails();
 
     // SJF
     CPU cpuSJF = new CPU(new SJFScheduler());
     cpuSJF.addAll(copyDataset(dataset));
     cpuSJF.run();
+    cpuSJF.printDetails();
 
     // SRTF
     CPU cpuSRTF = new CPU(new SRTFScheduler());
     cpuSRTF.addAll(copyDataset(dataset));
     cpuSRTF.run();
+    cpuSRTF.printDetails();
   }
 
   // Helper method to create a deep copy of the dataset for each algorithm

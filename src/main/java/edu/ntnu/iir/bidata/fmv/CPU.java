@@ -62,7 +62,6 @@ public class CPU {
       tick();
     }
     calculateDetails();
-    printDetails();
   }
 
   /**

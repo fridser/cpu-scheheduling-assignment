@@ -7,6 +7,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the cpu with the different schedulers and with different datasets,
+ * and expects a predetermined outcome calculated on pen and paper.
+ */
 public class CPUTest {
 
   static private List<Process> createSampleTestSJF() {
@@ -28,12 +32,22 @@ public class CPUTest {
     return list;
   }
 
+  static private List<Process> createSampleTestSRTF() {
+    ArrayList<Process> list = new ArrayList<>();
+    list.add(new Process(1, 0, 8));
+    list.add(new Process(2,1,4));
+    list.add(new Process(3,2,9));
+    list.add(new Process(4,3,5));
+    return list;
+  }
+
   @Test
     public void testCpuWithFCFS() {
     CPU cpu = new CPU(new FCFSScheduler());
     List<Process> sample = createSampleTestFCFS();
     cpu.addAll(sample);
     cpu.run();
+    cpu.calculateDetails();
     assertEquals(5, sample.get(0).getTurnaroundTime());
     assertEquals(11, sample.get(1).getTurnaroundTime());
     assertEquals(3, sample.get(2).getTurnaroundTime());
@@ -63,4 +77,23 @@ public class CPUTest {
     assertEquals(15, sample.get(2).getWaitingTime());
     assertEquals(9, sample.get(3).getWaitingTime());
   }
+
+  @Test
+    public void testCpuWithSRTF() {
+    CPU cpu = new CPU(new SRTFScheduler());
+    List<Process> sample = createSampleTestSRTF();
+    cpu.addAll(sample);
+    cpu.run();
+
+    assertEquals( 17, sample.get(0).getTurnaroundTime());
+    assertEquals(  4, sample.get(1).getTurnaroundTime());
+    assertEquals(24, sample.get(2).getTurnaroundTime());
+    assertEquals( 7, sample.get(3).getTurnaroundTime());
+
+    assertEquals(9, sample.get(0).getWaitingTime());
+    assertEquals(0, sample.get(1).getWaitingTime());
+    assertEquals(15, sample.get(2).getWaitingTime());
+    assertEquals( 2, sample.get(3).getWaitingTime());
+  }
+
 }
