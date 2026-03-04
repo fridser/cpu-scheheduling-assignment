@@ -47,14 +47,15 @@ public class CPU {
   }
 
   public void printDetails() {
-    System.out.println("|Pid|AT|BT|TT|WT|CT|");
+    System.out.printf("%6s %6s %6s %6s %6s %6s\n", "Pid", "AT", "BT", "TT", "WT", "CT");
     for (Process process: processes) {
-      System.out.println(" | " + process.getId() + " | " +
-          process.getArrivalTime() + " | " +
-          process.getBurstTime() + " | " +
-          process.getTurnaroundTime() + " | " +
-          process.getWaitingTime() + " | " +
-          process.getCompletionTime() + " | "
+      System.out.printf("%6s %6s %6s %6s %6s %6s\n",
+              process.getId(),
+              process.getArrivalTime(),
+              process.getBurstTime(),
+              process.getTurnaroundTime(),
+              process.getWaitingTime(),
+              process.getCompletionTime()
           );
     }
     calculateDetails();
