@@ -33,7 +33,7 @@ public class CPUTest {
     CPU cpu = new CPU(new FCFSScheduler());
     List<Process> sample = createSampleTestFCFS();
     cpu.addAll(sample);
-    cpu.run(50);
+    cpu.run();
     assertEquals(5, sample.get(0).getTurnaroundTime());
     assertEquals(11, sample.get(1).getTurnaroundTime());
     assertEquals(3, sample.get(2).getTurnaroundTime());
@@ -52,7 +52,7 @@ public class CPUTest {
     CPU cpu = new CPU(new SJFScheduler());
     List<Process> sample = createSampleTestSJF();
     cpu.addAll(sample);
-    cpu.run(50);
+    cpu.run();
     assertEquals( 8, sample.get(0).getTurnaroundTime());
     assertEquals(  11, sample.get(1).getTurnaroundTime());
     assertEquals(24, sample.get(2).getTurnaroundTime());
