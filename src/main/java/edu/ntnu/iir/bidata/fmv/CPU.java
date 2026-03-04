@@ -43,7 +43,6 @@ public class CPU {
     for (int i = 0; i < iterations; i++) {
       tick();
     }
-    printDetails();
   }
 
   public void printDetails() {
