@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CPUTest {
 
-  static private List<Process> createSampleTestSRTF() {
+  static private List<Process> createSampleTestSJF() {
     ArrayList<Process> list = new ArrayList<>();
     list.add(new Process(1, 0, 8));
     list.add(new Process(2,1,4));
@@ -45,5 +45,22 @@ public class CPUTest {
     assertEquals(0, sample.get(2).getWaitingTime());
     assertEquals(11, sample.get(3).getWaitingTime());
     assertEquals(4, sample.get(4).getWaitingTime());
+  }
+
+  @Test
+    public void testCpuWithSJF() {
+    CPU cpu = new CPU(new SJFScheduler());
+    List<Process> sample = createSampleTestSJF();
+    cpu.addAll(sample);
+    cpu.run(50);
+    assertEquals( 17, sample.get(0).getTurnaroundTime());
+    assertEquals(  4, sample.get(1).getTurnaroundTime());
+    assertEquals(24, sample.get(2).getTurnaroundTime());
+    assertEquals( 7, sample.get(3).getTurnaroundTime());
+
+    assertEquals(9, sample.get(0).getWaitingTime());
+    assertEquals(0, sample.get(1).getWaitingTime());
+    assertEquals(15, sample.get(2).getWaitingTime());
+    assertEquals(2, sample.get(3).getWaitingTime());
   }
 }
