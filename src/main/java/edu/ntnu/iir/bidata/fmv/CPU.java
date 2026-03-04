@@ -26,23 +26,24 @@ public class CPU {
     this.processes.add(process);
   }
 
-  public void tick() {
-    if (processes.stream().anyMatch(process -> process.getArrivalTime() == time)) {
-      for (Process process :
-          processes.stream().filter(process ->
-              process.getArrivalTime() == time).toList()) {
-        scheduler.addProcess(process);
 
+  public void tick() {
+    // Add processes that arrive at the current time to the scheduler
+    for (Process process : processes) {
+      if (process.getArrivalTime() == time) {
+        scheduler.addProcess(process);
       }
     }
-    scheduler.process();
+    scheduler.process(time);
     time++;
   }
 
-  public void run(int iterations) {
-    for (int i = 0; i < iterations; i++) {
+  // Run the CPU until all processes are finished
+  public void run() {
+    while (processes.stream().anyMatch(p -> !p.isFinished())) {
       tick();
     }
+    calculateDetails();
     printDetails();
   }
 
@@ -79,9 +80,5 @@ public class CPU {
     avgWaitingTime =  ((double) totWaitingTime / (double) processes.size());
   }
 
-  public void addAll(List<Process> list) {
-    for (Process process: list) {
-      addProcess(process);
-    }
-  }
+  public void addAll(List<Process> list) { this.processes.addAll(list); }
 }

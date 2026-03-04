@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class FCFSScheduler implements Scheduler {
-  private Queue<Process> queue;
-  private int time = 0;
+  private Queue<Process> queue = new LinkedList<>();
+  private Process currentProcess = null;
 
   public FCFSScheduler(){
     queue = new LinkedList<>();
@@ -17,18 +17,18 @@ public class FCFSScheduler implements Scheduler {
   }
 
   @Override
-  public void process() {
-    if (queue.peek() != null) {
-      if (queue.peek().doWork(time)) {
-        queue.remove();
-      }
+  public void process(int time) {
+    if (currentProcess == null || currentProcess.isFinished()) {
+      currentProcess = queue.poll();
     }
-    time++;
+    if (currentProcess != null) {
+      currentProcess.doWork(time);
+    }
   }
 
   @Override
   public boolean isEmpty() {
-    return queue.isEmpty();
+    return queue.isEmpty() && currentProcess == null;
   }
 
 }

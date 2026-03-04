@@ -5,10 +5,38 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        CPU cpu = new CPU(new FCFSScheduler());
-        cpu.addAll(createSampleTestFCF  S());
-        cpu.run(100);
+      runAllAlgorithmsOnDataset("Case 1", createSample1());
+      runAllAlgorithmsOnDataset("Case 2", createSample2());
+      runAllAlgorithmsOnDataset("Case 3", createSample3());
     }
+
+  private static void runAllAlgorithmsOnDataset(String caseName, List<Process> dataset) {
+    System.out.println("====== " + caseName + " ======");
+
+    // FCFS
+    CPU cpuFCFS = new CPU(new FCFSScheduler());
+    cpuFCFS.addAll(copyDataset(dataset));
+    cpuFCFS.run();
+
+    // SJF
+    CPU cpuSJF = new CPU(new SJFScheduler());
+    cpuSJF.addAll(copyDataset(dataset));
+    cpuSJF.run();
+
+    // SRTF
+    CPU cpuSRTF = new CPU(new SRTFScheduler());
+    cpuSRTF.addAll(copyDataset(dataset));
+    cpuSRTF.run();
+  }
+
+  // Helper method to create a deep copy of the dataset for each algorithm
+  private static List<Process> copyDataset(List<Process> original) {
+    List<Process> copy = new ArrayList<>();
+    for (Process p : original) {
+      copy.add(new Process(p.getId(), p.getArrivalTime(), p.getBurstTime()));
+    }
+    return copy;
+  }
 
    static private List<Process> createSample1() {
         ArrayList<Process> list = new ArrayList<>();
