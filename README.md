@@ -1,4 +1,7 @@
 # Running the application
+Prerequisites:
+- Java Development Kit (minimum JDK-21) installed on your machine.
+- Maven installed on your machine.
 
 To run the application, follow these steps:
 1. Clone the repository to your local machine.
